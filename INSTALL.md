@@ -1,10 +1,10 @@
-#WEVOTE Bootcamp
+# WEVOTE Bootcamp
 This tutorial is intended for beginner Linux and WEVOTE users, and will detail the steps required to install and run WEVOTE on the UIC Extreme cluster using a precompiled WEVOTE_PACKAGE. 
 
-##Installing Linux Virtual Machine:
+## Installing Linux Virtual Machine:
 Since WEVOTE currently only supports Linux, a copy of Linux must be installed on your computer to properly interface with and install WEVOTE. If your computer already has a Linux virtual machine installed or is running Linux, skip this section.
 
-###Installing VM VirtualBox
+### Installing VM VirtualBox
 VirtualBox allows a copy of Linux to run on your computer without having to fully install the operating system. Download and install the [latest version]( https://www.virtualbox.org/wiki/Downloads) for your computer.
 
 
@@ -13,7 +13,7 @@ Once installed, VirtualBox requires a copy of Linux to run. You may choose any u
 > http://environmentalomics.org/bio-linux-download/
 > http://environmentalomics.org/bio-linux-installation/
 
-###Virtual Machine Configuration
+### Virtual Machine Configuration
 After installation, boot up the virtual machine, login and setup your user profile per your preferences.
 _ _Note: Windows users may need to enable Virtualization Technology in their BIOS before they can boot the virtual machine. VirtualBox will prompt you if you have not enabled it._ _
 
@@ -34,7 +34,7 @@ ENTER PASSWORD
 You may need to logout for the change to take effect. Your shell prompt (text appearing before your typed commands) should have a “$” at the end of it. 
 
 
-##Basic Shell Commands
+## Basic Shell Commands
 All interaction with the computing cluster will be through the Linux shell terminal. It is recommended that you read through some basic tutorials for navigating the Linux shell and writing shell scripts: http://linuxcommand.org/lc3_learning_the_shell.php. You don’t need to be an expert, but should know some of the commands and basic syntax. Below is a list of important commands for navigating the shell and some basic syntax.
 ‘’’
 cd – changes directories
@@ -53,7 +53,7 @@ mkdir DIRECTORYNAME – creates a directory in the current working directory
 
 _ _Note: If you ever encounter an unfamiliar command, you can usually add -h or –help at the end of the command to see help text for it._ _
 
-##SSH Login
+## SSH Login
 To login to your UIC Extreme account you can use the following command:
 ‘’’
 ssh netid@login-1.extreme.uic.edu
@@ -95,16 +95,16 @@ You can also copy files from your Extreme account to your local virtual machine.
 scp NETID@login-1.extreme.uic.edu:[PATH TO FILE] [PATH TO DESTINATION]
 ‘’’
 
-##WEVOTE Installation
+## WEVOTE Installation
 Although WEVOTE normally requires that each tool be downloaded and compiled, and the databases for these tools be built, this process has already been completed in the WEVOTE_PACKAGE folder transferred to you after your Extreme account setup was completed. Thus, your WEVOTE installation mainly consists of configuration steps to ensure all file paths are correct.
 
-###Environment Variables
+### Environment Variables
 In order to execute commands without having to type the path to the executable, Linux keeps track of an environment variable called PATH. In order to run WEVOTE scripts from any folder within your Extreme account you need to add WEVOTE’s main folder to your PATH. Within your Extreme account:
 ‘’’
 export PATH=$PATH:/Path_to_WEVOTE_PACKAGE/WEVOTE
 ‘’’
 
-###WEVOTE Configuration
+### WEVOTE Configuration
 Navigate to the WEVOTE directory in WEVOTE_PACKAGE and open wevote.cfg for editing:
 ‘’’
 cd [PATH TO WEVOTE]
@@ -128,10 +128,10 @@ Copy wevote.cfg to location of your FASTA input files.
 cp wevote.cfg [PATH_TO_FASTA_FILES]
 ‘’’
 
-##Running WEVOTE
+## Running WEVOTE
 In order to take advantage of the Extreme cluster’s resources, WEVOTE should not be run directly from the shell. A shell script containing all relevant commands and info needs to be written and submitted to the Extreme cluster as a job for automatic approval and resource distribution. It is recommended that you familiarize yourself with the basics of [shell scripting](http://linuxcommand.org/lc3_writing_shell_scripts.php) and [specific commands](http://rc.uic.edu/resources/technical-documentation/) for the cluster. 
 
-###Prepare the Shell Script
+### Prepare the Shell Script
 
 To start making a WEVOTE script, create a new file using vim in a directory where you would like to store your shell scripts. No file extension is required. 
 ‘’’
@@ -169,7 +169,7 @@ PBS -V passes all environment variables from your Extreme account to the job. Th
 PBS -o sets a file to be used for the stdout of the script, i.e. any notifications or prompts from the shell as it executes commands.
 <
 
-###Setting Up WEVOTE in the Shell Script
+### Setting Up WEVOTE in the Shell Script
 Now that your shell script settings are ready, you can begin writing the actual script for running WEVOTE. These commands will essentially run in the same environment as commands you type into your Extreme bash shell. All syntax is the same.
 
 Assuming you’ve added the path to WEVOTE in your PATH environment variable, you will only need one major command:
@@ -207,7 +207,7 @@ echo ‘Done’
 
 Save the file and exit vim.
 
-###Running WEVOTE on the Cluster
+### Running WEVOTE on the Cluster
 To run your new script on the cluster:
 ‘’’
 qsub WEVOTERUN
@@ -225,7 +225,7 @@ showq gives an overview of all jobs running and in the queue.
 showq
 ‘’’
 <br/>
-###Troubleshooting
+### Troubleshooting
 After your job is complete, it will generate files that can help with troubleshooting. These files are labeled with the suffix .o[JOBID] or .e[JOBID] and stored in the folder designated by PBS -o.
 
 Check these files for clues to script errors if the output of WEVOTE is not generated or not what was expected.
