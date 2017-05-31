@@ -11,6 +11,7 @@ VirtualBox allows a copy of Linux to run on your computer without having to full
 Once installed, VirtualBox requires a copy of Linux to run. You may choose any up-to-date version of Linux for VirtualBox. Links for download and installation of Bio-Linux, a version specialized for bioinformatics analysis is below:
 
 > http://environmentalomics.org/bio-linux-download/
+
 > http://environmentalomics.org/bio-linux-installation/
 
 ### Virtual Machine Configuration
@@ -35,7 +36,7 @@ You may need to logout for the change to take effect. Your shell prompt (text ap
 
 
 ## Basic Shell Commands
-All interaction with the computing cluster will be through the Linux shell terminal. It is recommended that you read through some basic tutorials for navigating the Linux shell and writing shell scripts: http://linuxcommand.org/lc3_learning_the_shell.php. You don’t need to be an expert, but should know some of the commands and basic syntax. Below is a list of important commands for navigating the shell and some basic syntax.
+All interaction with the computing cluster will be through the Linux shell terminal. It is recommended that you read through some basic [tutorials](http://linuxcommand.org/lc3_learning_the_shell.php) for navigating the Linux shell and writing shell scripts. You don’t need to be an expert, but should know some of the commands and basic syntax. Below is a list of important commands for navigating the shell and some basic syntax.
 ```
 cd – changes directories
 	cd with no commands returns to the home directory
