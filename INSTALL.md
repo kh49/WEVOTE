@@ -7,7 +7,6 @@ Since WEVOTE currently only supports Linux, a copy of Linux must be installed on
 ### Installing VM VirtualBox
 VirtualBox allows a copy of Linux to run on your computer without having to fully install the operating system. Download and install the [latest version]( https://www.virtualbox.org/wiki/Downloads) for your computer.
 
-
 Once installed, VirtualBox requires a copy of Linux to run. You may choose any up-to-date version of Linux for VirtualBox. Links for download and installation of Bio-Linux, a version specialized for bioinformatics analysis is below:
 
 > http://environmentalomics.org/bio-linux-download/
@@ -16,7 +15,8 @@ Once installed, VirtualBox requires a copy of Linux to run. You may choose any u
 
 ### Virtual Machine Configuration
 After installation, boot up the virtual machine, login and setup your user profile per your preferences.
-_ _Note: Windows users may need to enable Virtualization Technology in their BIOS before they can boot the virtual machine. VirtualBox will prompt you if you have not enabled it._ _
+
+_Note: Windows users may need to enable Virtualization Technology in their BIOS before they can boot the virtual machine. VirtualBox will prompt you if you have not enabled it._
 
 Once the machine is booted successfully and you are logged into the account you wish to use on the virtual machine, be sure to open a terminal and check that your default shell is bash:
 ```
@@ -33,7 +33,6 @@ ENTER PASSWORD
 ```
 
 You may need to logout for the change to take effect. Your shell prompt (text appearing before your typed commands) should have a “$” at the end of it. 
-
 
 ## Basic Shell Commands
 All interaction with the computing cluster will be through the Linux shell terminal. It is recommended that you read through some basic [tutorials](http://linuxcommand.org/lc3_learning_the_shell.php) for navigating the Linux shell and writing shell scripts. You don’t need to be an expert, but should know some of the commands and basic syntax. Below is a list of important commands for navigating the shell and some basic syntax.
@@ -52,7 +51,7 @@ rm FILENAME – delete file
 mkdir DIRECTORYNAME – creates a directory in the current working directory
 ```
 
-_ _Note: If you ever encounter an unfamiliar command, you can usually add -h or –help at the end of the command to see help text for it._ _
+_Note: If you ever encounter an unfamiliar command, you can usually add -h or –help at the end of the command to see help text for it._ 
 
 ## SSH Login
 To login to your UIC Extreme account you can use the following command:
@@ -225,7 +224,7 @@ showq gives an overview of all jobs running and in the queue.
 ```
 showq
 ```
-</br>
+
 ### Troubleshooting
 After your job is complete, it will generate files that can help with troubleshooting. These files are labeled with the suffix .o[JOBID] or .e[JOBID] and stored in the folder designated by PBS -o.
 
