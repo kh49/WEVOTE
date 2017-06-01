@@ -10,7 +10,7 @@ VirtualBox allows a copy of Linux to run on your computer without having to full
 Once installed, VirtualBox requires a copy of Linux to run. You may choose any up-to-date version of Linux for VirtualBox. Links for download and installation of Bio-Linux, a version specialized for bioinformatics analysis is below:
 
 > http://environmentalomics.org/bio-linux-download/
-<<<<<<< HEAD
+> http://environmentalomics.org/bio-linux-installation/
 
 ### Virtual Machine Configuration
 After installation, open VirtualBox and  boot up the virtual machine, and select "Import Appliance" from the File menu. Select the Bio-Linux OVA or other OVA/OVF file you downloaded as the appliance to import. Click next.
@@ -33,16 +33,6 @@ Linux terminals run through a protocol called a shell. We will use the bash shel
 ![terminal location](https://raw.githubusercontent.com/pophipi/WEVOTE/master/images/terminallocation.png)
 
 Then, enter the following:
-=======
-
-> http://environmentalomics.org/bio-linux-installation/
-
-### Virtual Machine Configuration
-After installation, boot up the virtual machine, login and setup your user profile per your preferences.
-
-_Note: Windows users may need to enable Virtualization Technology in their BIOS before they can boot the virtual machine. VirtualBox will prompt you if you have not enabled it._
->>>>>>> origin/master
-
 ```
 echo $SHELL
 ```
@@ -59,11 +49,8 @@ ENTER PASSWORD
 You need to logout for the change to take effect. Your shell prompt (text appearing before your typed commands) should have a “$” at the end of it. 
 ![bash config](https://raw.githubusercontent.com/pophipi/WEVOTE/master/images/bashconfiguration.png)
 
-<<<<<<< HEAD
 _Note: If you want to chance the colors of your terminal, you go to Profile Preferences from the Edit menu which appears at the menu bar on the top of the screen when terminal is selected as the active window._
 
-=======
->>>>>>> origin/master
 ## Basic Shell Commands
 All interaction with the computing cluster will be through the Linux shell terminal. It is recommended that you read through some basic [tutorials](http://linuxcommand.org/lc3_learning_the_shell.php) for navigating the Linux shell and writing shell scripts. You don’t need to be an expert, but should know some of the commands and basic syntax. Below is a list of important commands for navigating the shell and some basic syntax.
 ```
@@ -179,7 +166,7 @@ Copy wevote.cfg to location of your FASTA input files.
 cp wevote.cfg [PATH_TO_FASTA_FILES]
 ```
 
-_Note: FASTA files should always be in the following format:
+_Note: FASTA files should always be in the following format:_
 ```
 >read name/info
 read
@@ -215,7 +202,7 @@ Next, we need to define options for the Extreme cluster management system using 
 #PBS -o ~/Scripts/WEVOTERUN.out
 ```
 
-_PBS -l commands describe the resources required for the job, with nodes being the number of computing nodes requested, partition meaning what part of Extreme to run on (leave this setting alone), and walltime indicating how much time the program is allotted to run before it is terminated in ds:hrs:mins:secs. 
+PBS -l commands describe the resources required for the job, with nodes being the number of computing nodes requested, partition meaning what part of Extreme to run on (leave this setting alone), and walltime indicating how much time the program is allotted to run before it is terminated in ds:hrs:mins:secs. 
 
 PBS -M sets an email to receive notifications about the status of the job.
 
@@ -225,7 +212,7 @@ PBS -N names the job, making it easier to parse errors and outputs later.
 
 PBS -V passes all environment variables from your Extreme account to the job. This is vital if your script relies on your environment variables but is optional if you wrote out the full path for everything in your script.
 
-PBS -o sets a file to be used for the stdout of the script, i.e. any notifications or prompts from the shell as it executes commands._
+PBS -o sets a file to be used for the stdout of the script, i.e. any notifications or prompts from the shell as it executes commands.
 
 
 ### Setting Up WEVOTE in the Shell Script
@@ -284,10 +271,8 @@ showq gives an overview of all jobs running and in the queue.
 showq
 ```
 
-<<<<<<< HEAD
 ### WEVOTE classification Output Format:
 Each sequence classified by WEVOTE results in a single line of output. Output lines have tab-delimited fields; from left to right, they are:
-
 
 1. The sequence ID, obtained from the FASTA header. 
 2. The total number of tools used in WEVOTE (N). 
@@ -344,8 +329,6 @@ The abundance ouput file is a comma-seprated file that has 10 fields; from left 
 9. Genus: the name of the genus corresponding to the taxonomy id of the first field. This field is left empty if no defined genus for this taxon. 
 10. Species: the name of the species corresponding to the taxonomy id of the first field. This field is left empty if no defined species for this taxon.
 
-=======
->>>>>>> origin/master
 ### Troubleshooting
 After your job is complete, it will generate files that can help with troubleshooting. These files are labeled with the suffix .o[JOBID] or .e[JOBID] and stored in the folder designated by PBS -o.
 
