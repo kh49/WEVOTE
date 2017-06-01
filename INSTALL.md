@@ -10,6 +10,7 @@ VirtualBox allows a copy of Linux to run on your computer without having to full
 Once installed, VirtualBox requires a copy of Linux to run. You may choose any up-to-date version of Linux for VirtualBox. Links for download and installation of Bio-Linux, a version specialized for bioinformatics analysis is below:
 
 > http://environmentalomics.org/bio-linux-download/
+
 > http://environmentalomics.org/bio-linux-installation/
 
 ### Virtual Machine Configuration
