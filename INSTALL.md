@@ -7,10 +7,10 @@ Since WEVOTE currently only supports Linux, a copy of Linux must be installed on
 ### Installing VM VirtualBox
 VirtualBox allows a copy of Linux to run on your computer without having to fully install the operating system. Download and install the [latest version]( https://www.virtualbox.org/wiki/Downloads) for your computer.
 
-
 Once installed, VirtualBox requires a copy of Linux to run. You may choose any up-to-date version of Linux for VirtualBox. Links for download and installation of Bio-Linux, a version specialized for bioinformatics analysis is below:
 
 > http://environmentalomics.org/bio-linux-download/
+<<<<<<< HEAD
 
 ### Virtual Machine Configuration
 After installation, open VirtualBox and  boot up the virtual machine, and select "Import Appliance" from the File menu. Select the Bio-Linux OVA or other OVA/OVF file you downloaded as the appliance to import. Click next.
@@ -33,6 +33,15 @@ Linux terminals run through a protocol called a shell. We will use the bash shel
 ![terminal location](https://raw.githubusercontent.com/pophipi/WEVOTE/master/images/terminallocation.png)
 
 Then, enter the following:
+=======
+
+> http://environmentalomics.org/bio-linux-installation/
+
+### Virtual Machine Configuration
+After installation, boot up the virtual machine, login and setup your user profile per your preferences.
+
+_Note: Windows users may need to enable Virtualization Technology in their BIOS before they can boot the virtual machine. VirtualBox will prompt you if you have not enabled it._
+>>>>>>> origin/master
 
 ```
 echo $SHELL
@@ -50,10 +59,13 @@ ENTER PASSWORD
 You need to logout for the change to take effect. Your shell prompt (text appearing before your typed commands) should have a “$” at the end of it. 
 ![bash config](https://raw.githubusercontent.com/pophipi/WEVOTE/master/images/bashconfiguration.png)
 
+<<<<<<< HEAD
 _Note: If you want to chance the colors of your terminal, you go to Profile Preferences from the Edit menu which appears at the menu bar on the top of the screen when terminal is selected as the active window._
 
+=======
+>>>>>>> origin/master
 ## Basic Shell Commands
-All interaction with the computing cluster will be through the Linux shell terminal. It is recommended that you read through some basic tutorials for navigating the Linux shell and writing shell scripts: http://linuxcommand.org/lc3_learning_the_shell.php. You don’t need to be an expert, but should know some of the commands and basic syntax. Below is a list of important commands for navigating the shell and some basic syntax.
+All interaction with the computing cluster will be through the Linux shell terminal. It is recommended that you read through some basic [tutorials](http://linuxcommand.org/lc3_learning_the_shell.php) for navigating the Linux shell and writing shell scripts. You don’t need to be an expert, but should know some of the commands and basic syntax. Below is a list of important commands for navigating the shell and some basic syntax.
 ```
 cd – changes directories
 	cd with no commands returns to the home directory
@@ -272,6 +284,7 @@ showq gives an overview of all jobs running and in the queue.
 showq
 ```
 
+<<<<<<< HEAD
 ### WEVOTE classification Output Format:
 Each sequence classified by WEVOTE results in a single line of output. Output lines have tab-delimited fields; from left to right, they are:
 
@@ -331,6 +344,8 @@ The abundance ouput file is a comma-seprated file that has 10 fields; from left 
 9. Genus: the name of the genus corresponding to the taxonomy id of the first field. This field is left empty if no defined genus for this taxon. 
 10. Species: the name of the species corresponding to the taxonomy id of the first field. This field is left empty if no defined species for this taxon.
 
+=======
+>>>>>>> origin/master
 ### Troubleshooting
 After your job is complete, it will generate files that can help with troubleshooting. These files are labeled with the suffix .o[JOBID] or .e[JOBID] and stored in the folder designated by PBS -o.
 
