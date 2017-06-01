@@ -162,9 +162,13 @@ metaphlanPath="/export/home/[YOUR NETID]/PATH TO WEVOTE_PACKAGE/metaphlan"
 tippPath=""
 ```
 
-Copy wevote.cfg to location of your FASTA input files.
+Copy wevote.cfg to location of your FASTA input files. For the sake of our examples, we will put the wevote.cfg in the home directory. If you will be working with many FASTA files, it would be a good idea to place them all in a seperate folder with a wevote.cfg file so you don't need to repeat this step for each new file.
 ```
-cp wevote.cfg [PATH_TO_FASTA_FILES]
+cp wevote.cfg ~/
+
+or
+
+cp wevote.cfg [Path to FASTA files not in home directory]
 ```
 
 _Note: FASTA files should always be in the following format:_
@@ -174,6 +178,15 @@ read
 >read name/info
 read
 ...
+
+i.e.
+
+>B_cereus_MiSeq.88
+TTCCTTTGTAACTCCGTATAGAATGTCCTACAACCCCAAGAGGCAAGCCTCTTGGTTTGGGCTATGTTCCGTTTCGCTCGCCGCTACTCAGGAAATCGCATTTGCTTTCTCTTCCTCCAGGTACTTAGATGTTTCAGTTCCCTGGGTCTGTCTTCCTTACCCTATGTATTCAGATAAGGATACCATACCATTACGTATGGTGGGTTTCCCCATTCGGAAATCTTCGGATCAAAGCTTACTTACAGCTCCCC
+>B_cereus_MiSeq.682
+AAATGTATTAGCGAACAATATCGAAAATGCGAAAG
+>B_cereus_MiSeq.2899
+AAGGAGATGGCGTGTTGTAAGAAACTGTACCATTAACAGAATCACGAACTGGTGCAGAGTATACTTCACCGTCTGGAATGTTTAAATGACCTGAGCATTTAATTGCTGGAATGTCTTTAATAGAGAATGTTAAGTCAGTTCCAGGACCAGTTAGGCGCACTTTATCTGTTTTATTCATTAATGTAACAAGGCTATCCATCGCCTTATCCATTTTACCGTAGTCTAAGTTACAAACTTCGAAGTAGAAGTCT
 ```
 
 ## Running WEVOTE
@@ -181,8 +194,11 @@ In order to take advantage of the Extreme cluster’s resources, WEVOTE should n
 
 ### Prepare the Shell Script
 
-To start making a WEVOTE script, create a new file using vim in a directory where you would like to store your shell scripts. No file extension is required. 
+To start making a WEVOTE script, create a new file using vim in a directory where you would like to store your shell scripts. No file extension is required. For our examples, we name this script WEVOTERUN and we will use the directory ~/Scripts (you can enter "mkdir Scripts" in your home directory to make this).
 ```
+cd
+mkdir Scripts
+cd Scripts
 vim WEVOTERUN
 ```
 
@@ -203,7 +219,9 @@ Next, we need to define options for the Extreme cluster management system using 
 #PBS -o ~/Scripts/WEVOTERUN.out
 ```
 
-PBS -l commands describe the resources required for the job, with nodes being the number of computing nodes requested, partition meaning what part of Extreme to run on (leave this setting alone), and walltime indicating how much time the program is allotted to run before it is terminated in ds:hrs:mins:secs. 
+PBS -l commands describe the resources required for the job, with nodes being the number of computing nodes requested, partition meaning what part of Extreme to run on (leave this setting alone), and walltime indicating how much time the program is allotted to run before it is terminated in ds:hrs:mins:secs.
+
+_Note that shorter wall time jobs are given priority. Setting this to 12 or 24 hours is more than enough for FASTA files with far more than 20k reads. For our example, we will set it to 10 minutes since we will only analyze 100 reads._ 
 
 PBS -M sets an email to receive notifications about the status of the job.
 
@@ -242,14 +260,37 @@ Options:
 -c|--classfy                  Start the pipeline from the classification step. i.e., skip running individual tools
 ```
 
-Example (Note that threads should be adjusted based on the number of nodes you request. Each node usually can run 16 threads):
+Before we run that command, we should tell our script to change directories to where your FASTA files and wevote.cfg are placed. For our example, this is the home directory.
 ```
-run_WEVOTE_PIPELINE.sh -i MiSeq_accuracy.fa -o ~/Documents/WEVOTEOUT/wevote_output --db ~/Documents/WEVOTE_PACKAGE/WEVOTE_DB --clark --metaphlan --blastn --kraken --threads 256 -a 2
+cd
+```
+
+Now we can add the example command that actually runs WEVOTE (Note that threads should be adjusted based on the number of nodes you request. Each node usually can run 16 threads.):
+```
+run_WEVOTE_PIPELINE.sh -i 100readtest.fa -o ~/wevote_output --db ~/WEVOTE_PACKAGE/WEVOTE_DB --clark --metaphlan --blastn --kraken --threads 256 -a 2
 ```
 
 After this command executes, you can add one more line to let the script indicate that it finished running successfully. This message will be saved to stdout.
 ```
 echo ‘Done’
+```
+
+In summary, your script for running WEVOTE on a file called 100readtest.fa should look like this:
+```
+#!/bin/bash
+#PBS -l nodes=16 
+#PBS -l partition=ALL
+#PBS -l walltime=00:10:00
+#PBS -M netid@uic.edu
+#PBS -m be
+#PBS -N WEVOTERUN
+#PBS -V
+#PBS -o ~/Scripts/WEVOTERUN.out
+
+cd
+run_WEVOTE_PIPELINE.sh -i 100readtest.fa -o ~/wevote_output --db ~/WEVOTE_PACKAGE/WEVOTE_DB --clark --metaphlan --blastn --kraken --threads 256 -a 2
+
+echo 'Done'
 ```
 
 Save the file and exit vim.
@@ -289,7 +330,7 @@ Each sequence classified by WEVOTE results in a single line of output. Output li
 
 
 ## How to generate the abundance profile from WEVOTE output:
-WEVOTE supports calculating the abundance for the reads or contigs profiling. To execute the the Abundance script on WEVOTE output, use:
+WEVOTE supports calculating the abundance for the reads or contigs profiling. This can be written into the script that executes WEVOTE or simply entered from the terminal. To execute the the Abundance script on WEVOTE output, use:
 ```
 run_ABUNDANCE.sh -i <input-file> -p <output-prefix> --db <path-to-taxonomy-DB> <options>
 ```
@@ -305,8 +346,11 @@ run_ABUNDANCE.sh -i <input-file> -p <output-prefix> --db <path-to-taxonomy-DB> <
 ```
 
 ### Abundance example:
+After successfully running our example WEVOTE script above, you can use the following commands to run WEVOTE's abundance analysis on the output. The input for abundance is always the file with WEVOTE_details.txt as a suffix. In our case, this file should be in the folder wevote_output, which we designated in the script for running WEVOTE.
+
 ```
-run_ABUNDANCE.sh -i test_wevote_output_WEVOTE_Details.txt -p test_wevote_abundance --db WEVOTE_DB
+cd ~/wevote_output
+run_ABUNDANCE.sh -i wevote_output_WEVOTE_Details.txt -p test_wevote_abundance --db ~/WEVOTE_PACKAGE/WEVOTE_DB
 ```
 
 ### Abundance example assuming the sequences are from contigs:
