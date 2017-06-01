@@ -18,7 +18,9 @@ After installation, open VirtualBox and  boot up the virtual machine, and select
 
 On the following page, select "Reinitialize the MAC address of all network cards" then click "Import". Once the virtual machine has been imported, you should see a new entry in VirtualBox's list of virtual machines on the left side of the window. Click once to select the new machine then select "Settings" from the menu above the virtual machine list. Go to the "Display" tab and make sure Video Memory is set to at least 128MB. Click "Ok" to exit the settings prompt. You are now ready to boot the virtual machine.
 
-_Note: Windows users may need to enable Virtualization Technology in their BIOS before they can boot the virtual machine. VirtualBox will prompt you if you have not enabled it._
+_Notes: 
+1. While Bio-Linux defaults to 2 GB of virtual memory, you may need more if you plan on working with large files locally and not just on the Extreme cluster. You can change these settings through your virtual machine system settings.
+2. Windows users may need to enable Virtualization Technology in their BIOS before they can boot the virtual machine. VirtualBox will prompt you if you have not enabled it._
 
 ### Running the Virtual Machine
 From VirtualBox, double click your new virtual machine to boot it. The first time the machine runs, the display may be very small. You can adjust it by selecting a larger size from the "Virtual Screen" settings in the "View" menu. Once the machine is booted, you may be prompted to upgrade Ubuntu. Click "Do Not Upgrade".
@@ -29,7 +31,7 @@ The default account on Bio-Linux is the manager account with the password "manag
 
 Then click the "+" sign in the lower left to add an account. If you chose to add your own account instead of using the manager account, be sure to set your account as an _Administrator_ instead of _Standard_ account type in the prompt that appears. Set a password for your account by clicking next to the password field after account creation. You can toggle Automatic Login so the next time the machine boots, you will login to your own account.
 
-### Checking Your Shell Version
+### Checking Your Shell Version (Optional)
 Linux terminals run through a protocol called a shell. We will use the bash shell for all WEVOTE and Extreme work. To check if you are using the bash shell, open up a terminal:
 ![terminal location](https://raw.githubusercontent.com/pophipi/WEVOTE/master/images/terminallocation.png)
 
@@ -51,6 +53,9 @@ You need to logout for the change to take effect. Your shell prompt (text appear
 ![bash config](https://raw.githubusercontent.com/pophipi/WEVOTE/master/images/bashconfiguration.png)
 
 _Note: If you want to chance the colors of your terminal, you go to Profile Preferences from the Edit menu which appears at the menu bar on the top of the screen when terminal is selected as the active window._
+
+### Shared Clipboard
+By default, your virtual machine does not share any information with your actual computer. If you are viewing this tutorial in your actual computer's browser, you won't be able to copy code over. To fix that, you can enable clipboard sharing by going to the Devices menu in VirtualBox while running your virtual machine and setting the "Shared Clipboard" option to "bidirectional". This will allow you to copy files to and from your virtual machine to your actual computer. 
 
 ## Basic Shell Commands
 All interaction with the computing cluster will be through the Linux shell terminal. It is recommended that you read through some basic [tutorials](http://linuxcommand.org/lc3_learning_the_shell.php) for navigating the Linux shell and writing shell scripts. You don’t need to be an expert, but should know some of the commands and basic syntax. Below is a list of important commands for navigating the shell and some basic syntax.
