@@ -85,7 +85,7 @@ rm FILENAME – delete file
 mkdir DIRECTORYNAME – creates a directory in the current working directory 
 ```
 
-_Note: If you ever encounter an unfamiliar command, you can usually add -h or –help at the end of the command to see help text for it._ 
+_Note: If you encounter an unfamiliar command, you can usually add -h or --help at the end of the command to see help text for it._ 
 
 ## SSH Login
 To login to your UIC Extreme account you can use the following command:
