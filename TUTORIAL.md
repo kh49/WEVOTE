@@ -123,7 +123,10 @@ cat .ssh/id_rsa.pub | ssh netid@login-1.extreme.uic.edu ‘cat >> .ssh/authorize
 
 _Note: cat is a concatenation command that appends text together._
 
-You will now be able to login to Extreme with “ssh netid@login-1.extreme.uic.edu” without entering a password. To authorize access to your Extreme account, you will need copies of the RSA keys from all users you wish to authorize. Login to your Extreme account then navigate to the .ssh folder and open the authorized_keys file which contains all authorized RSA user keys:
+You will now be able to login to Extreme with “ssh netid@login-1.extreme.uic.edu” without entering a password. 
+
+### Obtaining WEVOTE_PACKAGE using SSH
+In order to obtain the WEVOTE_PACKAGE directory needed to run WEVOTE, you will need to add Kai or Ahmed's RSA key to your authorized users. To authorize access to your Extreme account, you will need copies of the RSA keys from all users you wish to authorize. Login to your Extreme account then navigate to the .ssh folder and open the authorized_keys file which contains all authorized RSA user keys:
 ```
 cd .ssh
 vim authorized_keys
