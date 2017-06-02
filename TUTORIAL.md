@@ -245,6 +245,7 @@ PBS -o sets a file to be used for the stdout of the script, i.e. any notificatio
 The UIC Extreme account does not load all available tools for each user by default. To use Metaphlan, you need to add one more line after the #PBS commands that loads numpy, a necessary python module for Metaphlan:
 ```
 module load tools/numpy-1.8.1-intel-python2.7.6
+module load apps/bowtie2-2.2.9
 ```
 
 ### Setting Up WEVOTE in the Shell Script
@@ -301,6 +302,7 @@ In summary, your script for running WEVOTE on a file called 100readtest.fa shoul
 #PBS -o ~/Scripts/WEVOTERUN.out
 
 module load tools/numpy-1.8.1-intel-python2.7.6
+module load apps/bowtie2-2.2.9
 
 cd
 run_WEVOTE_PIPELINE.sh -i 100readtest.fa -o ~/wevote_output --db ~/WEVOTE_PACKAGE/WEVOTE_DB --clark --metaphlan --blastn --kraken --threads 256 -a 2
