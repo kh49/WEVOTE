@@ -241,6 +241,11 @@ PBS -V passes all environment variables from your Extreme account to the job. Th
 
 PBS -o sets a file to be used for the stdout of the script, i.e. any notifications or prompts from the shell as it executes commands.
 
+### Metaphlan Python Modules
+The UIC Extreme account does not load all available tools for each user by default. To use Metaphlan, you need to add one more line after the #PBS commands that loads numpy, a necessary python module for Metaphlan:
+```
+module load tools/numpy-1.8.1-intel-python2.7.6
+```
 
 ### Setting Up WEVOTE in the Shell Script
 Now that your shell script settings are ready, you can begin writing the actual script for running WEVOTE. These commands will essentially run in the same environment as commands you type into your Extreme bash shell. All syntax is the same.
@@ -294,6 +299,8 @@ In summary, your script for running WEVOTE on a file called 100readtest.fa shoul
 #PBS -N WEVOTERUN
 #PBS -V
 #PBS -o ~/Scripts/WEVOTERUN.out
+
+module load tools/numpy-1.8.1-intel-python2.7.6
 
 cd
 run_WEVOTE_PIPELINE.sh -i 100readtest.fa -o ~/wevote_output --db ~/WEVOTE_PACKAGE/WEVOTE_DB --clark --metaphlan --blastn --kraken --threads 256 -a 2
