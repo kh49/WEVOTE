@@ -314,7 +314,7 @@ echo ‘Done’
 In summary, your script for running WEVOTE on a file called 100readtest.fa should look like this:
 ```
 #!/bin/bash
-#PBS -l nodes=16 
+#PBS -l nodes=11 
 #PBS -l partition=ALL
 #PBS -l walltime=00:10:00
 #PBS -M yournetid@uic.edu
@@ -327,7 +327,7 @@ module load tools/numpy-1.8.1-intel-python2.7.6
 module load apps/bowtie2-2.2.9
 
 cd
-run_WEVOTE_PIPELINE.sh -i 100readtest.fa -o ~/wevote_output --db ~/WEVOTE_PACKAGE/WEVOTE_DB --clark --metaphlan --blastn --kraken --threads 256 -a 2
+run_WEVOTE_PIPELINE.sh -i 100readtest.fa -o ~/wevote_output --db ~/WEVOTE_PACKAGE/WEVOTE_DB --clark --metaphlan --blastn --kraken --threads 16 -a 2
 
 echo 'Done'
 ```
@@ -344,7 +344,7 @@ Successful job submission will return a job ID number. You can track your job us
 
 checkjob shows details of a particular job.
 ```
-checkjob [job ID]
+checkjob <job ID>
 ```
 
 showq gives an overview of all jobs running and in the queue.
