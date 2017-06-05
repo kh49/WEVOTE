@@ -113,12 +113,12 @@ ssh-keygen -t rsa
 
 Just press enter for all prompts following this command until the RSA key is generated. Then make a directory on your Extreme account for SSH login keys:
 ```
-ssh netid@login-1.extreme.uic.edu mkdir -p .ssh
+ssh YOURNETID@login-1.extreme.uic.edu mkdir -p .ssh
 ```
 
 And transfer your computer’s newly generated public RSA key to your Extreme account:
 ```
-cat .ssh/id_rsa.pub | ssh netid@login-1.extreme.uic.edu ‘cat >> .ssh/authorized_keys’
+cat .ssh/id_rsa.pub | ssh YOURNETID@login-1.extreme.uic.edu ‘cat >> .ssh/authorized_keys’
 ```
 
 _Note: cat is a concatenation command that appends text together._
@@ -134,39 +134,61 @@ vim authorized_keys
 
 Copy each additional key onto a _new line_ and save the file. Now all users you have added should also have SSH access to your Extreme account without a password prompt. Once this is setup, you can copy files from your local virtual machine to your Extreme account using (adding the -r option before file paths will copy whole directories):
 ```
-scp [PATH TO LOCAL FILE] NETID@login-1.extreme.uic.edu:[PATH TO DESTINATION]
+scp [PATH TO LOCAL FILE] YOURNETID@login-1.extreme.uic.edu:[PATH TO DESTINATION]
 ```
 
 You can also copy files from your Extreme account to your local virtual machine. From your local machine shell (the -r option also applies here when you need to copy directories):
 ```
-scp NETID@login-1.extreme.uic.edu:[PATH TO FILE] [PATH TO DESTINATION]
+scp YOURNETID@login-1.extreme.uic.edu:[PATH TO FILE] [PATH TO DESTINATION]
 ```
 
 ## WEVOTE Installation
 Although WEVOTE normally requires that each tool be downloaded and compiled, and the databases for these tools be built, this process has already been completed in the WEVOTE_PACKAGE folder transferred to you after your Extreme account setup was completed. Thus, your WEVOTE installation mainly consists of configuration steps to ensure all file paths are correct.
 
 ### Environment Variables
-In order to execute commands without having to type the path to the executable, Linux keeps track of an environment variable called PATH. In order to run WEVOTE scripts from any folder within your Extreme account you need to add WEVOTE’s main folder to your PATH. Within your Extreme account:
+In order to execute commands without having to type the path to the executable, Linux keeps track of an environment variable called PATH. In order to run WEVOTE scripts from any folder within your Extreme account you need to add WEVOTE’s main folder to your PATH. You can use the command export to add environment variables. However, these will be reset when you logout. To make them permanent, you will need to create a .profile file with all your environment variables. This is a special filetype that will be loaded each time you login. Within your Extreme account home directory:
 ```
-export PATH=$PATH:/Path_to_WEVOTE_PACKAGE/WEVOTE
+vim ~/.profile
 ```
+
+Then copy the following into your .profile:
+```
+export PATH=$PATH:~/WEVOTE_PACKAGE/WEVOTE
+```
+
+You can add additional PATH variables or additional environment variables by adding more export commands to .profile. To append more executable paths to PATH, you can just add a : between paths. 
+Example(Don't copy paste this):
+```
+export PATH=$PATH:~/Documents/kaiju/bin:~/Documents/centrifuge:~/Documents/DIAMOND:~/Documents/WEVOTE_PACKAGE/WEVOTE:~/Documents/blast+/bin:~/Documents/centrifuge/scripts
+```
+
+While you are in .profile, you can add one more setting to make your Extreme account a little easier to navigate. You can change the shell prompt from -bash-4.1$ to display your netid and current folder instead by copying this into .profile:
+```
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+```
+
+This loads a system configuration file called bashrc that has been preset. Be sure to save .profile and exit vim.
+
 
 ### WEVOTE Configuration
 Navigate to the WEVOTE directory in WEVOTE_PACKAGE and open wevote.cfg for editing:
 ```
-cd [PATH TO WEVOTE]
+cd ~/WEVOTE_PACKAGE/WEVOTE
 vim wevote.cfg
 ```
 
 Add the paths for WEVOTE’s tools (note that ~/ notation does work correctly when executed as a part of a script in the cluster):
 ```
-blastnPath="/export/home/[YOUR NETID]/PATH TO WEVOTE_PACKAGE/blast"
-blastDB="/export/home/[YOUR NETID]/PATH TO WEVOTE_PACKAGE/blastDB/nt"
-krakenPath="/export/home/[YOUR NETID]/PATH TO WEVOTE_PACKAGE/kraken"
-krakenDB="/export/home/[YOUR NETID]/PATH TO WEVOTE_PACKAGE/krakenDB"
-clarkPath="/export/home/[YOUR NETID]/PATH TO WEVOTE_PACKAGE/clark"
-clarkDB="/export/home/[YOUR NETID]/PATH TO WEVOTE_PACKAGE/clarkDB"
-metaphlanPath="/export/home/[YOUR NETID]/PATH TO WEVOTE_PACKAGE/metaphlan"
+blastnPath="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/blast"
+blastDB="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/blastDB/nt"
+krakenPath="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/kraken"
+krakenDB="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/krakenDB"
+clarkPath="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/clark"
+clarkDB="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/clarkDB"
+metaphlanPath="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/metaphlan"
 tippPath=""
 ```
 
@@ -220,7 +242,7 @@ Next, we need to define options for the Extreme cluster management system using 
 #PBS -l nodes=16 
 #PBS -l partition=ALL
 #PBS -l walltime=24:00:00
-#PBS -M netid@uic.edu
+#PBS -M yournetid@uic.edu
 #PBS -m be
 #PBS -N WEVOTERUN
 #PBS -V
@@ -229,7 +251,7 @@ Next, we need to define options for the Extreme cluster management system using 
 
 PBS -l commands describe the resources required for the job, with nodes being the number of computing nodes requested, partition meaning what part of Extreme to run on (leave this setting alone), and walltime indicating how much time the program is allotted to run before it is terminated in ds:hrs:mins:secs.
 
-_Note that shorter wall time jobs are given priority. Setting this to 12 or 24 hours is more than enough for FASTA files with far more than 20k reads. For our example, we will set it to 10 minutes since we will only analyze 100 reads._ 
+_Note that shorter wall time jobs are given priority. Setting this to 12 or 24 hours is more than enough for FASTA files with far more than 20k reads. For our example, we will set it to 5 minutes since we will only analyze 100 reads._ 
 
 PBS -M sets an email to receive notifications about the status of the job.
 
@@ -294,8 +316,8 @@ In summary, your script for running WEVOTE on a file called 100readtest.fa shoul
 #!/bin/bash
 #PBS -l nodes=16 
 #PBS -l partition=ALL
-#PBS -l walltime=00:10:00
-#PBS -M netid@uic.edu
+#PBS -l walltime=00:05:00
+#PBS -M yournetid@uic.edu
 #PBS -m be
 #PBS -N WEVOTERUN
 #PBS -V
