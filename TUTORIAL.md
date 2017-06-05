@@ -251,7 +251,7 @@ Next, we need to define options for the Extreme cluster management system using 
 
 PBS -l commands describe the resources required for the job, with nodes being the number of computing nodes requested, partition meaning what part of Extreme to run on (leave this setting alone), and walltime indicating how much time the program is allotted to run before it is terminated in ds:hrs:mins:secs.
 
-_Note that shorter wall time jobs are given priority. Setting this to 12 or 24 hours is more than enough for FASTA files with far more than 20k reads. For our example, we will set it to 10 minutes since we will only analyze 100 reads._ 
+_Note that shorter wall time jobs are given priority. Setting this to 12 or 24 hours is more than enough for FASTA files with far more than 20k reads. For our example, we will set it to 20 minutes since we will only analyze 100 reads._ 
 
 PBS -M sets an email to receive notifications about the status of the job.
 
@@ -314,9 +314,9 @@ echo ‘Done’
 In summary, your script for running WEVOTE on a file called 100readtest.fa should look like this:
 ```
 #!/bin/bash
-#PBS -l nodes=11 
+#PBS -l nodes=1 
 #PBS -l partition=ALL
-#PBS -l walltime=00:10:00
+#PBS -l walltime=00:20:00
 #PBS -M yournetid@uic.edu
 #PBS -m be
 #PBS -N WEVOTERUN
