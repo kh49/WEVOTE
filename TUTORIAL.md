@@ -182,13 +182,13 @@ vim wevote.cfg
 
 Add the paths for WEVOTE’s tools (note that ~/ notation does work correctly when executed as a part of a script in the cluster):
 ```
-blastnPath="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/blast"
-blastDB="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/blastDB/nt"
-krakenPath="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/kraken"
-krakenDB="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/krakenDB"
-clarkPath="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/clark"
-clarkDB="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/clarkDB"
-metaphlanPath="/export/home/[YOUR NETID]/WEVOTE_PACKAGE/metaphlan"
+blastnPath="/export/home/<YOUR NETID>/WEVOTE_PACKAGE/blast"
+blastDB="/export/home/<YOUR NETID>/WEVOTE_PACKAGE/blastDB/nt"
+krakenPath="/export/home/<YOUR NETID>/WEVOTE_PACKAGE/kraken"
+krakenDB="/export/home/<YOUR NETID>/WEVOTE_PACKAGE/krakenDB"
+clarkPath="/export/home/<YOUR NETID>/WEVOTE_PACKAGE/clark"
+clarkDB="/export/home/<YOUR NETID>/WEVOTE_PACKAGE/clarkDB"
+metaphlanPath="/export/home/<YOUR NETID>/WEVOTE_PACKAGE/metaphlan"
 tippPath=""
 ```
 
