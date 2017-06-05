@@ -70,24 +70,24 @@ pwd - displays path of current directory
 ls – lists files in the current directory
 	Additional syntax: ls -l will give more detailed file information
 	
-less FILENAME – view file
+less <FILENAME> – view file
 
-vim FILENAME – edit file
+vim <FILENAME> – edit file
 	Additional syntax: vim is entirely command line based. 
 	To input text, you need to type "i" to enter insert mode.
 	To exit input mode, press Esc.
 	To save and quit, type :wq. Make sure you are not in insert mode.
 	To quit without saving, type :q!.
 
-cp FILENAME1 FILENAME2 – copy file1 to file2
+cp <FILENAME1> <FILENAME2> – copy file1 to file2
 	Additional syntax: cp -r directoryname destination will copy the whole directory, including all contents. This command also works with mv and rm. 
 	
-mv FILENAME DESTINATION – move file
+mv <FILENAME> <DESTINATION> – move file
 
-rm FILENAME – delete file
+rm <FILENAME> – delete file
 	Note that files deleted this way are not easily recoverable.  
 
-mkdir DIRECTORYNAME – creates a directory in the current working directory 
+mkdir <DIRECTORYNAME> – creates a directory in the current working directory 
 ```
 
 _Note: If you encounter an unfamiliar command, you can usually add -h or --help at the end of the command to see help text for it._ 
@@ -95,7 +95,7 @@ _Note: If you encounter an unfamiliar command, you can usually add -h or --help 
 ## SSH Login
 To login to your UIC Extreme account you can use the following command:
 ```
-ssh netid@login-1.extreme.uic.edu
+ssh <YOURNETID>@login-1.extreme.uic.edu
 ```
 
 If you receive a warning about the authenticity of the host, type yes and hit enter to ignore the warning and continue connecting. You will be prompted for your password.
@@ -113,12 +113,12 @@ ssh-keygen -t rsa
 
 Just press enter for all prompts following this command until the RSA key is generated. Then make a directory on your Extreme account for SSH login keys:
 ```
-ssh YOURNETID@login-1.extreme.uic.edu mkdir -p .ssh
+ssh <YOURNETID>@login-1.extreme.uic.edu mkdir -p .ssh
 ```
 
 And transfer your computer’s newly generated public RSA key to your Extreme account:
 ```
-cat .ssh/id_rsa.pub | ssh YOURNETID@login-1.extreme.uic.edu ‘cat >> .ssh/authorized_keys’
+cat .ssh/id_rsa.pub | ssh <YOURNETID>@login-1.extreme.uic.edu ‘cat >> .ssh/authorized_keys’
 ```
 
 _Note: cat is a concatenation command that appends text together._
@@ -134,12 +134,12 @@ vim authorized_keys
 
 Copy each additional key onto a _new line_ and save the file. Now all users you have added should also have SSH access to your Extreme account without a password prompt. Once this is setup, you can copy files from your local virtual machine to your Extreme account using (adding the -r option before file paths will copy whole directories):
 ```
-scp [PATH TO LOCAL FILE] YOURNETID@login-1.extreme.uic.edu:[PATH TO DESTINATION]
+scp <PATH TO LOCAL FILE> <YOURNETID>@login-1.extreme.uic.edu:<PATH TO DESTINATION>
 ```
 
 You can also copy files from your Extreme account to your local virtual machine. From your local machine shell (the -r option also applies here when you need to copy directories):
 ```
-scp YOURNETID@login-1.extreme.uic.edu:[PATH TO FILE] [PATH TO DESTINATION]
+scp <YOURNETID>@login-1.extreme.uic.edu:<PATH TO FILE> <PATH TO DESTINATION>
 ```
 
 ## WEVOTE Installation
@@ -198,7 +198,7 @@ cp wevote.cfg ~/
 
 or
 
-cp wevote.cfg [Path to FASTA files not in home directory]
+cp wevote.cfg <Path to FASTA files not in home directory>
 ```
 
 _Note: FASTA files should always be in the following format:_
@@ -251,7 +251,7 @@ Next, we need to define options for the Extreme cluster management system using 
 
 PBS -l commands describe the resources required for the job, with nodes being the number of computing nodes requested, partition meaning what part of Extreme to run on (leave this setting alone), and walltime indicating how much time the program is allotted to run before it is terminated in ds:hrs:mins:secs.
 
-_Note that shorter wall time jobs are given priority. Setting this to 12 or 24 hours is more than enough for FASTA files with far more than 20k reads. For our example, we will set it to 5 minutes since we will only analyze 100 reads._ 
+_Note that shorter wall time jobs are given priority. Setting this to 12 or 24 hours is more than enough for FASTA files with far more than 20k reads. For our example, we will set it to 10 minutes since we will only analyze 100 reads._ 
 
 PBS -M sets an email to receive notifications about the status of the job.
 
@@ -316,7 +316,7 @@ In summary, your script for running WEVOTE on a file called 100readtest.fa shoul
 #!/bin/bash
 #PBS -l nodes=16 
 #PBS -l partition=ALL
-#PBS -l walltime=00:05:00
+#PBS -l walltime=00:10:00
 #PBS -M yournetid@uic.edu
 #PBS -m be
 #PBS -N WEVOTERUN
