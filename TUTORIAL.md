@@ -340,6 +340,8 @@ To run your new script on the cluster:
 qsub WEVOTERUN
 ```
 
+_Note: If you run WEVOTE multiple times in the same output folder, errors may occur. Always designated a new folder for each run, or delete the folder contents._
+
 Successful job submission will return a job ID number. You can track your job using two main commands. 
 
 checkjob shows details of a particular job.
@@ -395,7 +397,7 @@ run_ABUNDANCE.sh -i wevote_output_WEVOTE_Details.txt -p test_wevote_abundance --
 ### Abundance example assuming the sequences are from contigs:
 In this case, each sequence in the FASTA file that WEVOTE analyzed is a contig. To calculate the actual number of reads mapped to every taxon, we need to have a mapping file that has the information of how many reads are used to assemble each contig. This file should be a tab-delimited file with two fields. The first field has the contig-ID and the second field has the number of reads that used to assemble the corresponding contig. Here is an example of how to call the script for contigs profiling:
 ```
-run_ABUNDANCE.sh -i test_wevote_output_WEVOTE_Details.txt -p test_wevote_abundance --db WEVOTE_DB --seqcount contig_reads.txt
+run_ABUNDANCE.sh -i wevote_output_WEVOTE_Details.txt -p test_wevote_abundance --db ~/WEVOTE_PACKAGE/WEVOTE_DB --seqcount contig_reads.txt
 ```
 
 ### Abundance profiling output format:
@@ -412,6 +414,71 @@ The abundance ouput file is a comma-seprated file that has 10 fields; from left 
 8. Family: the name of the family corresponding to the taxonomy id of the first field. This field is left empty if no defined family for this taxon. 
 9. Genus: the name of the genus corresponding to the taxonomy id of the first field. This field is left empty if no defined genus for this taxon. 
 10. Species: the name of the species corresponding to the taxonomy id of the first field. This field is left empty if no defined species for this taxon.
+
+## How to Analyze Abundance Output Using R
+An additional shell script is available for use after running abundance: run_STATISTICS.sh. This script will take the abundance output and calculate summary statistcs using R. These stats can then be
+exported to the WEVOTE Visualization script for automatic graphic generation.
+
+To run the script, you need to cd to the WEVOTE directory:
+```
+cd ~/WEVOTE_PACKAGE/WEVOTE
+```
+
+Then run the script:
+```
+run_STATISTICS.sh <path-to-wevote-output-folder> <output prefix>
+```
+Example using output from previous example steps:
+```
+run_STATISTICS.sh ~/wevote_output 'statistics'
+```
+
+This will create two files with the prefix statistics. The statistics_countMatrix.csv contains counts of each taxonID classified, and the statistcs_OTUMatrix.csv contains full taxonomy name info for each taxonID classified.
+
+## How to run all WEVOTE components in one script
+
+It is possible to add lines for running WEVOTE abundance and statistics components in your primary WEVOTERUN shell script.
+```
+cd <path-to-wevote-output>
+run_ABUNDANCE.sh -i <input-file> -p <output-prefix> --db <path-to-taxonomy-DB> <options>
+cd <path-to-WEVOTE-program-directory>
+run_STATISTICS.sh <path-to-wevote-output-directory> <statistics-output-prefix>
+```
+Using our previous examples, this would be:
+```
+cd ~/wevote_output
+run_ABUNDANCE.sh -i wevote_output_WEVOTE_Details.txt -p test_wevote_abundance --db ~/WEVOTE_PACKAGE/WEVOTE_DB
+cd ~/WEVOTE_PACKAGE/WEVOTE
+run_STATISTICS.sh ~/wevote_output statistics
+```
+
+The full script for our example would be:
+```
+#!/bin/bash
+#PBS -l nodes=1 
+#PBS -l partition=ALL
+#PBS -l walltime=00:20:00
+#PBS -M yournetid@uic.edu
+#PBS -m be
+#PBS -N WEVOTERUN
+#PBS -V
+#PBS -o ~/Scripts/WEVOTERUN.out
+
+module load tools/numpy-1.8.1-intel-python2.7.6
+module load apps/bowtie2-2.2.9
+
+cd
+run_WEVOTE_PIPELINE.sh -i 100readtest.fa -o ~/wevote_output --db ~/WEVOTE_PACKAGE/WEVOTE_DB --clark --metaphlan --blastn --kraken --threads 16 -a 2
+
+cd ~/wevote_output
+run_ABUNDANCE.sh -i wevote_output_WEVOTE_Details.txt -p test_wevote_abundance --db ~/WEVOTE_PACKAGE/WEVOTE_DB
+cd ~/WEVOTE_PACKAGE/WEVOTE
+run_STATISTICS.sh ~/wevote_output statistics
+
+echo 'Done'
+```
+
+_Note: run_STATISTICS.sh must be run from the WEVOTE program directory for the R script to work properly._
 
 ### Troubleshooting
 After your job is complete, it will generate files that can help with troubleshooting. These files are labeled with the suffix .o[JOBID] or .e[JOBID] and stored in the folder designated by PBS -o.
