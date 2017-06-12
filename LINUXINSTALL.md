@@ -141,3 +141,4 @@ You can also copy files from your Extreme account to your local virtual machine.
 ```
 scp <YOURNETID>@login-1.extreme.uic.edu:<PATH TO FILE> <PATH TO DESTINATION>
 ```
+Now you are ready to move on to the next part of the tutorial and [install WEVOTE](https://github.com/pophipi/WEVOTE/blob/master/TUTORIAL.md). 
