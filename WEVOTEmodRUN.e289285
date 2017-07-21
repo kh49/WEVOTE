@@ -1,0 +1,8 @@
+report file centrifuge_report.tsv
+Number of iterations in EM algorithm: 0
+Probability diff. (P - P_prev) in the last iteration: 0
+Calculating abundance: 00:00:00
+Error: Invalid output field
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  Invalid output field
+Error: /export/home/khuang49/Documents/WEVOTE_PACKAGE/WEVOTE/run_WEVOTE_PIPELINEmod.sh: line 338: 93035 Aborted                 $diamondPath/diamond blastx --max-target-seqs 1 --unal 1 --block-size 10 --index-chunks 1 --threads $threads -f 6 qseqid staxids --taxonmap $diamondDB/prot.accession2taxid.gz -d $diamondDB/nrdatabase.dmnd -q $query > $dirPath/$prefix/$prefix"_OutputDiamond"
