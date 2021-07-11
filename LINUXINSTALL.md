@@ -1,5 +1,5 @@
 # Finn-Perkins Lab Linux Virtual Machine Installation Tutorial 
-This tutorial is intended for beginner Linux and WEVOTE users, and will detail the steps required to install a Linux virtual machine and interface with the Extreme cluster at UIC. 
+This tutorial is intended for beginner Linux and WEVOTE users, and will detail the steps required to install a Linux virtual machine and interface with the Extreme cluster at UIC. If you don't have an account on Extreme, you can request it here: https://acer.uic.edu/get-started/request-access/. Be sure to mention Dr. Perkins as sponsor.
 
 ## Installing Linux Virtual Machine
 Since WEVOTE currently only supports Linux, a copy of Linux must be installed on your computer to properly interface with and install WEVOTE. If your computer already has a Linux virtual machine installed or is running Linux, skip this section.
